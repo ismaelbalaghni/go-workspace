@@ -1,9 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"example/greetings"
+	"example/mascot"
 	"fmt"
 	"log"
+	"os"
 
 	"golang.org/x/example/stringutil"
 )
@@ -30,4 +33,25 @@ func main() {
 		log.Fatal(errs)
 	}
 	fmt.Println(messages)
+
+	// Exemple personnel
+	var scannedNames []string
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Please enter the first name: ")
+	scanner.Scan()
+	scannedNames = append(scannedNames, scanner.Text())
+	for i := 0; i < 5; i++ {
+		fmt.Print("Please enter the next name: ")
+		scanner.Scan()
+		scannedNames = append(scannedNames, scanner.Text())
+	}
+	messages, errs = greetings.Hellos(scannedNames)
+	if errs != nil {
+		log.Fatal(errs)
+	}
+	fmt.Println(messages)
+
+	// Exemple personnel 2
+	mascot := mascot.BestMascot()
+	fmt.Println(mascot)
 }
